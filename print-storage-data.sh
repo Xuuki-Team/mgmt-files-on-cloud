@@ -4,17 +4,19 @@
 #!/bin/bash                                                                                              
                                                                                                          
 # Define the base path                                                                                   
-base_path="gdrive:Source/Projects"                                                                       
+base_path="vdrive:Source/Projects"                                                                       
                                                                                                          
 # Initialize the CSV file with headers                                                                   
-echo "project_name,session_date,gdrive_path" > $HOME/projects.csv                                              
+echo "project_name,session_date,vdrive_path" > $HOME/projects.csv                                              
                                                                                                          
 # List directories in the base path                                                                      
+echo "$base_path" 
 projects=$(rclone lsd $base_path | awk '{print $5}')                                                     
                                                                                                          
 # Iterate over each project                                                                              
 for project in $projects; do                                                                             
     # List subdirectories for each project                                                               
+    echo "$base_path/$project"
     sessions=$(rclone lsd "$base_path/$project" | awk '{print $5}')                                      
                                                                                                          
     # If there are no subdirectories, add the project itself                                             
